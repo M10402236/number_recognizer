@@ -22,9 +22,21 @@ class PredictionHandler(BaseHandler):
 
         validated = Validator.validate_data(data)
         machine = MachineLoader.load(machines.number_recognizer)
+
+        with open('c:/temp/test.txt','a') as thefile:
+            for item in validated:
+                thefile.write("%s\n" % item)
+        from random import randint
+        b=randint(0,9)
+        print("please input number %d" % b)
+        with open('c:/temp/target.txt','a') as thefile:
+            thefile.write("%s\n" % b)
         if len(validated) > 0:
             predicted = machine.predict(validated)
+            print(validated)
+            print(predicted)
             resp["result"] = str(predicted[0])
+            #resp["result"] = str(b)
 
         self.write(resp)
 
